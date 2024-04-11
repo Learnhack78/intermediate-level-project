@@ -1,0 +1,36 @@
+from cryptography.fernet import Fernet
+
+# Generate a key for encryption and decryption
+def generate_key():
+    return Fernet.generate_key()
+
+# Encrypt credit card details
+def encrypt_card_details(card_details, key):
+    cipher_suite = Fernet(key)
+    encrypted_details = cipher_suite.encrypt(card_details.encode())
+    return encrypted_details
+
+# Decrypt credit card details
+def decrypt_card_details(encrypted_details, key):
+    cipher_suite = Fernet(key)
+    decrypted_details = cipher_suite.decrypt(encrypted_details)
+    return decrypted_details.decode()
+
+# Example usage
+def main():
+    # Generate encryption/decryption key
+    key = generate_key()
+
+    # User input: credit card details
+    card_details = input("Enter your credit card details: ")
+
+    # Encrypt the credit card details
+    encrypted_details = encrypt_card_details(card_details, key)
+    print("Encrypted credit card details:", encrypted_details)
+
+    # Decrypt the credit card details
+    decrypted_details = decrypt_card_details(encrypted_details, key)
+    print("Decrypted credit card details:", decrypted_details)
+
+if __name__ == "__main__":
+    main()
